@@ -15,6 +15,8 @@ const(
 	ErrorSendEmail = 30008
 	//product
 	ErrorProductImgUpload = 40001
+
+	ErrorFavoriteExist = 50001
 	
 	
 )

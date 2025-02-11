@@ -27,6 +27,7 @@ func NewRouter() *gin.Engine{
 		v1.GET("products", api.ListProduct)
 		v1.GET("product/:id", api.ShowProduct)
 		v1.GET("imgs/:id", api.ListProductImg)
+		v1.GET("categories", api.ListCategory)
 
 		authed := v1.Group("/") //Need login protect
 		authed.Use(middleware.JWT()) // JWT authen
@@ -43,11 +44,27 @@ func NewRouter() *gin.Engine{
 			authed.POST("product", api.CreateProduct)
 			authed.POST("products", api.SearchProduct)
 
-			// authed.POST("address", api.CreateAddress)
-			// authed.GET("address/:id", api.GetAddress)
-			// authed.GET("address", api.ListAddress)
-			// authed.PUT("address/:id", api.UpdateAddress)
-			// authed.DELETE("address/:id", api.DeleteAddress)
+			//Collection
+			authed.GET("collection", api.ListFavorites)
+			authed.POST("collection", api.CreateFavorites)
+			authed.DELETE("collection", api.DeleteFavorites)
+
+			//Address
+			authed.POST("address", api.CreateAddress)
+			authed.GET("address/:id", api.ShowAddress)
+			authed.GET("address", api.ListAddress)
+			authed.PUT("address/:id", api.UpdateAddress)
+			authed.DELETE("address/:id", api.DeleteAddress)
+
+			//Order
+			authed.POST("order", api.CreateOrder)
+			authed.GET("orders", api.ListOrder)
+			authed.GET("order/:id", api.ShowOrder)
+			authed.DELETE("order/:id", api.DeleteOrder)
+
+			//Pay
+			authed.POST("paydown", api.OrderPay)
+
 		}
 
 	}

@@ -14,6 +14,7 @@ var MsgFlags = map[int]string{
 	ErrotUploadFail: "failed upload avatar",
 	ErrorSendEmail: "Send email failed",
 	ErrorProductImgUpload: "Upload picture error",
+	ErrorFavoriteExist: "Favorite has existed",
 }
 
 //GetMsg code status correspond message
