@@ -6,6 +6,10 @@ It is mainly referenced from this https://www.bilibili.com/video/BV1Zd4y1U7D8?sp
 
 In addition to the original implementation, we have added a "Second Kill" feature.
 
+## Second Kill feature
+Process for second kill
+<img width="760" alt="Screenshot 2025-02-17 at 23 48 15" src="https://github.com/user-attachments/assets/3107290f-abba-4ce4-ad1c-064fe950382a" />
+
 ## Features
 
 - **User Management**: Registration, login, profile updates, and avatar upload.
