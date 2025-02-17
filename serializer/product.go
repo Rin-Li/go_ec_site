@@ -1,6 +1,7 @@
 package serializer
 
 import (
+	"gin-mall-tmp/cache"
 	"gin-mall-tmp/conf"
 	"gin-mall-tmp/model"
 )
@@ -24,6 +25,8 @@ type Product struct{
 }
 
 func BuildProduct(item model.Product) Product {
+	viewCount := cache.View(item.ID)
+
 	return Product{
 		Id: item.ID,
 		Name: item.Name,
@@ -33,7 +36,7 @@ func BuildProduct(item model.Product) Product {
 		ImgPath: conf.Host + conf.HttpPort + conf.ProductPath + item.ImgPath, 
 		Price: item.Price,
 		DiscountPrice: item.DiscountPrice,
-		View: item.View(),
+		View: viewCount,
 		CreateAt: item.CreatedAt.Unix(),
 		Num: item.Num,
 		OnSale: item.Onsale,

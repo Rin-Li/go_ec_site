@@ -29,6 +29,8 @@ func NewRouter() *gin.Engine{
 		v1.GET("imgs/:id", api.ListProductImg)
 		v1.GET("categories", api.ListCategory)
 
+
+
 		authed := v1.Group("/") //Need login protect
 		authed.Use(middleware.JWT()) // JWT authen
 		{
@@ -64,6 +66,12 @@ func NewRouter() *gin.Engine{
 
 			//Pay
 			authed.POST("paydown", api.OrderPay)
+
+			//Seckill
+			authed.GET("seckill", api.ListSeckillProducts)
+			authed.POST("seckill/:id", api.SeckillOrder)
+
+
 
 		}
 

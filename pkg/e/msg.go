@@ -15,6 +15,9 @@ var MsgFlags = map[int]string{
 	ErrorSendEmail: "Send email failed",
 	ErrorProductImgUpload: "Upload picture error",
 	ErrorFavoriteExist: "Favorite has existed",
+	ErrorNotSeckillProduct: "Not found seckill product",
+	ErrorOutOfStock: "Out of stock",
+	ErrorOrderSeckill: "Order failed",
 }
 
 //GetMsg code status correspond message

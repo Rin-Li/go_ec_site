@@ -23,7 +23,7 @@ func Database(connRead, connWrite string) {
 	}
 
 	db, err := gorm.Open(mysql.New(mysql.Config{
-		DSN:                       connWrite, // 使用写库作为默认连接
+		DSN:                       connWrite, 
 		DefaultStringSize:         256,
 		DisableDatetimePrecision:  true,
 		DontSupportRenameIndex:    true,

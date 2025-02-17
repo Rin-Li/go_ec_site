@@ -3,7 +3,6 @@ package cache
 import (
 	"fmt"
 	"strconv"
-
 	"github.com/go-redis/redis"
 	"gopkg.in/ini.v1"
 )

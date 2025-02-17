@@ -3,12 +3,11 @@ package dao
 import (
 	"context"
 	"gin-mall-tmp/model"
-
 	"gorm.io/gorm"
 )
 
 type ProductDao struct {
-	*gorm.DB //表示与数据库的连接
+	*gorm.DB 
 }
 
 func NewProductDao(ctx context.Context) *ProductDao {

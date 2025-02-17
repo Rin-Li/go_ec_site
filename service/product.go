@@ -191,5 +191,4 @@ func (service *ProductService) Show(ctx context.Context, id string) serializer.R
 		Data: serializer.BuildProduct(*product),
 	}
 
-
 }

@@ -17,6 +17,11 @@ const(
 	ErrorProductImgUpload = 40001
 
 	ErrorFavoriteExist = 50001
+
+	//seckill
+	ErrorNotSeckillProduct = 60001
+	ErrorOutOfStock = 60002
+	ErrorOrderSeckill = 60003
 	
 	
 )
