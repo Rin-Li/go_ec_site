@@ -13,7 +13,6 @@ func PreheatSeckillProducts(){
 
 	products, err := serkillDao.GetSeckillProducts()
 	if err != nil{
-		LogrusObj.Infoln(err)
 		return
 	}
 
@@ -23,13 +22,13 @@ func PreheatSeckillProducts(){
 	for _, product := range products{
 		err := cache.SetSeckillProduct(product.ID, &product)
 		if err != nil{
-			LogrusObj.Printf("[Preheat] prodct %d failed: %v\n", product.ID, err)
+			// LogrusObj.Printf("[Preheat] prodct %d failed: %v\n", product.ID, err)
 			failedCount++
 		} else{
 			successCount++
 		}
 	}
 
-	LogrusObj.Printf("[Preheat] success: %d, failed: %d\n", successCount, failedCount)
+	// LogrusObj.Printf("[Preheat] success: %d, failed: %d\n", successCount, failedCount)
 
 }

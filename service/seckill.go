@@ -15,7 +15,7 @@ import (
 )
 
 type SeckillService struct{
-	UserID uint `json:"user_id" form:"user_id"`
+	
 }
 
 
@@ -39,7 +39,7 @@ func (service *SeckillService) ShowProduct(ctx context.Context) serializer.Respo
 
 }
 
-func (service *SeckillService) Order(ctx context.Context, pid string) serializer.Response{
+func (service *SeckillService) Order(ctx context.Context, uId uint, pid string) serializer.Response{
 	id, _:= strconv.Atoi(pid)
 	code := e.Success
 
@@ -101,12 +101,13 @@ func (service *SeckillService) Order(ctx context.Context, pid string) serializer
 		}
 
 		order := model.SeckillOrder{
-			UserID: service.UserID,
+			UserID: uId,
 			ProductID: uint(id),
 			OrderStatus: 0,
 			CreatedAt: time.Now(),
 			UpdatedAt: time.Now(),
 		}
+		
 		err = tx.Create(&order).Error
 		if err != nil{
 			tx.Rollback()

@@ -8,7 +8,7 @@ import (
 )
 
 type NoticeDao struct {
-	*gorm.DB //表示与数据库的连接
+	*gorm.DB 
 }
 
 func NewNoticeDao(ctx context.Context) *NoticeDao {

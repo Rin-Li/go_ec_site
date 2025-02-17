@@ -19,7 +19,10 @@ func Migration(){
 			&model.Notice{},
 			&model.Order{},
 			&model.ProductImg{},
-			&model.Product{})
+			&model.Product{},
+			&model.SeckillProduct{},
+			&model.SeckillOrder{},
+		)
 		
 	if err != nil{
 		fmt.Println("err", err)
