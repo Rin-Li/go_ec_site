@@ -24,9 +24,9 @@ Process for second kill
 
 - **Go**: Backend development.
 - **Gin**: Web framework for API handling.
-- **JWT**: Authentication and authorization.
+- **JWT**: Authentication and authorization for users.
 - **MySQL**: Database for storing user and product data.
-- **Redis**: Caching for improved performance.
+- **Redis**: Caching for flash sales and product analytics.
 
 ## Installation
 
