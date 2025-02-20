@@ -26,7 +26,6 @@ Process for second kill
 - **Gin**: Web framework for API handling.
 - **JWT**: Authentication and authorization.
 - **MySQL**: Database for storing user and product data.
-- **Docker**: Deployment and environment setup.
 - **Redis**: Caching for improved performance.
 
 ## Installation
