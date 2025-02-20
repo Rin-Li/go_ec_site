@@ -22,11 +22,11 @@ Process for second kill
 
 ## Technologies Used
 
-- **Go**: Backend development.
-- **Gin**: Web framework for API handling.
-- **JWT**: Authentication and authorization for users.
-- **MySQL**: Database for storing user and product data.
-- **Redis**: Caching for flash sales and product analytics.
+- Using **Go** for backend development.
+- Using **Gin** web framework for API handling.
+- Using **JWT** for authentication and authorization for users.
+- Using **MySQL** for storing user and product data.
+- Using Redis as cache to for flash sales and product analytics.
 
 ## Installation
 
