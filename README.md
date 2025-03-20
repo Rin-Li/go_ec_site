@@ -2,6 +2,14 @@
 
 This is a backend system for an e-commerce (EC) site, built with Go using the Gin framework. It provides APIs for user management, product management, orders, and payments.
 
+It is mainly referenced from this https://www.bilibili.com/video/BV1Zd4y1U7D8?spm_id_from=333.788.videopod.episodes&vd_source=461c37833af8427a514d9f0b39901286.
+
+In addition to the original implementation, we have added a "Second Kill" feature.
+
+## Second Kill feature
+Process for second kill
+<img width="760" alt="Screenshot 2025-02-17 at 23 48 15" src="https://github.com/user-attachments/assets/3107290f-abba-4ce4-ad1c-064fe950382a" />
+
 ## Features
 
 - **User Management**: Registration, login, profile updates, and avatar upload.
@@ -14,12 +22,11 @@ This is a backend system for an e-commerce (EC) site, built with Go using the Gi
 
 ## Technologies Used
 
-- **Go**: Backend development.
-- **Gin**: Web framework for API handling.
-- **JWT**: Authentication and authorization.
-- **MySQL**: Database for storing user and product data.
-- **Docker**: Deployment and environment setup.
-- **Redis**: Caching for improved performance.
+- Using **Go** for backend development.
+- Using **Gin** web framework for API handling.
+- Using **JWT** for authentication and authorization for users.
+- Using **MySQL** for storing user and product data.
+- Using Redis as cache to for flash sales and product analytics.
 
 ## Installation
 
@@ -28,7 +35,6 @@ This is a backend system for an e-commerce (EC) site, built with Go using the Gi
 - Go 1.18+
 - MySQL
 - Redis
-- Docker (Optional, for containerized deployment)
 
 ### Setup
 
@@ -98,17 +104,10 @@ This is a backend system for an e-commerce (EC) site, built with Go using the Gi
 | GET    | `/api/v1/seckill`            | List Seckill products    |
 | POST   | `/api/v1/seckill/:id`        | Purchase Seckill product |
 
-## Running with Docker
-
-```
-docker build -t go-ec-site .
-docker run -p 8080:8080 go-ec-site
-```
 
 ## Contribution
 
 Feel free to fork this repository and contribute via pull requests.
 
-## License
 
-This project is licensed under the MIT License.
+
