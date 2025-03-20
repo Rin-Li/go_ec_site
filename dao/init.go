@@ -40,18 +40,18 @@ func Database(connRead, connWrite string) {
 	}
 
 	sqlDB, _ := db.DB()
-	sqlDB.SetMaxIdleConns(20)           // 最大空闲连接数
-	sqlDB.SetMaxOpenConns(100)          // 最大打开连接数
-	sqlDB.SetConnMaxLifetime(time.Hour) // 连接最大存活时间
+	sqlDB.SetMaxIdleConns(20)          
+	sqlDB.SetMaxOpenConns(100)          
+	sqlDB.SetConnMaxLifetime(time.Hour) 
 
 	_db = db
 
-	// 配置主从数据库
+
 	err = _db.Use(dbresolver.Register(
 		dbresolver.Config{
-			Sources:  []gorm.Dialector{mysql.Open(connWrite)},                  // 写操作源
-			Replicas: []gorm.Dialector{mysql.Open(connRead), mysql.Open(connRead)}, // 读操作副本
-			Policy:   dbresolver.RandomPolicy{},                                // 随机选择副本
+			Sources:  []gorm.Dialector{mysql.Open(connWrite)},                  
+			Replicas: []gorm.Dialector{mysql.Open(connRead), mysql.Open(connRead)}, 
+			Policy:   dbresolver.RandomPolicy{},                               
 		}),
 	)
 	if err != nil {

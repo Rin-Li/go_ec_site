@@ -14,24 +14,22 @@ import (
 	"github.com/go-redis/redis"
 )
 
-type SeckillService struct{
-	
+type SeckillService struct {
 }
 
-
-func (service *SeckillService) ShowProduct(ctx context.Context) serializer.Response{
+func (service *SeckillService) ShowProduct(ctx context.Context) serializer.Response {
 	var products []model.SeckillProduct
 	var err error
 	code := e.Success
 	productDao := dao.NewSeckillDao(ctx)
 	products, err = productDao.GetSeckillProducts()
-	if err != nil{
+	if err != nil {
 		code = e.Error
 		util.LogrusObj.Infoln(err)
 		return serializer.Response{
 			Status: code,
-			Data: e.GetMsg(code),
-			Error: err.Error(),
+			Data:   e.GetMsg(code),
+			Error:  err.Error(),
 		}
 	}
 
@@ -39,92 +37,96 @@ func (service *SeckillService) ShowProduct(ctx context.Context) serializer.Respo
 
 }
 
-func (service *SeckillService) Order(ctx context.Context, uId uint, pid string) serializer.Response{
-	id, _:= strconv.Atoi(pid)
+func (service *SeckillService) Order(ctx context.Context, uId uint, pid string) serializer.Response {
+	id, _ := strconv.Atoi(pid)
 	code := e.Success
 
 	seckillproductDao := dao.NewSeckillDao(ctx)
 	product, err := cache.GetSeckillProduct(uint(id))
 
-	if err != nil{
-		if err == redis.Nil{
+	if err != nil {
+		if err == redis.Nil {
 			product, err = seckillproductDao.GetSeckillProductById(uint(id))
-			if err != nil{
+			if err != nil {
 				code = e.ErrorNotSeckillProduct
 				return serializer.Response{
 					Status: code,
-					Data: e.GetMsg(code),
-					Error: err.Error(),
+					Data:   e.GetMsg(code),
+					Error:  err.Error(),
 				}
 			}
-			go func(){
+			go func() {
 				cache.SetSeckillProduct(uint(id), product)
 			}()
-		} else{
+		} else {
 			code = e.Error
 			return serializer.Response{
 				Status: code,
-				Msg: e.GetMsg(code),
-				Error: err.Error(),
-			}
-		}
-		
-		} 
-
-		if product.Stock <= 0{
-			code = e.ErrorOutOfStock
-			return serializer.Response{
-				Status: code,
-				Msg: e.GetMsg(code),
-				Error: err.Error(),
-			}
-
-		}
-
-		tx := seckillproductDao.DB.Begin()
-
-		defer func() {
-			if r := recover(); r != nil{
-				tx.Rollback()
-			}
-		}()
-
-		err = tx.Model(&model.SeckillProduct{}).Where("id=?", id).Update("stock", product.Stock-1).Error
-		if err != nil{
-			tx.Rollback()
-			code = e.Error 
-			return serializer.Response{
-				Status: code,
-				Msg: e.GetMsg(code),
-				Error: err.Error(),
+				Msg:    e.GetMsg(code),
+				Error:  err.Error(),
 			}
 		}
 
-		order := model.SeckillOrder{
-			UserID: uId,
-			ProductID: uint(id),
-			OrderStatus: 0,
-			CreatedAt: time.Now(),
-			UpdatedAt: time.Now(),
-		}
-		
-		err = tx.Create(&order).Error
-		if err != nil{
-			tx.Rollback()
-			code = e.ErrorOrderSeckill
-			return serializer.Response{
-				Status: code,
-				Msg: e.GetMsg(code),
-				Error: err.Error(),
-			}
-		}
+	}
 
-		tx.Commit()
-
+	if product.Stock <= 0 {
+		code = e.ErrorOutOfStock
 		return serializer.Response{
 			Status: code,
-			Msg: e.GetMsg(code),
-			Data: serializer.BuildSeckillOrder(order),
+			Msg:    e.GetMsg(code),
+			Error:  err.Error(),
 		}
-}
 
+	}
+
+	tx := seckillproductDao.DB.Begin()
+
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+
+	err = tx.Model(&model.SeckillProduct{}).Where("id=?", id).Update("stock", product.Stock-1).Error
+	if err != nil {
+		tx.Rollback()
+		code = e.Error
+		return serializer.Response{
+			Status: code,
+			Msg:    e.GetMsg(code),
+			Error:  err.Error(),
+		}
+	}
+
+	order := model.SeckillOrder{
+		UserID:      uId,
+		ProductID:   uint(id),
+		OrderStatus: 0,
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
+	}
+
+	err = tx.Create(&order).Error
+	if err != nil {
+		tx.Rollback()
+		code = e.ErrorOrderSeckill
+		return serializer.Response{
+			Status: code,
+			Msg:    e.GetMsg(code),
+			Error:  err.Error(),
+		}
+	}
+
+	tx.Commit()
+
+	go func() {
+		product.Stock -= 1
+		cache.SetSeckillProduct(uint(id), product)
+	}()
+
+	return serializer.Response{
+		Status: code,
+		Msg:    e.GetMsg(code),
+		Data:   serializer.BuildSeckillOrder(order),
+	}
+}

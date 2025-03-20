@@ -7,7 +7,7 @@ import (
 )
 
 type CarouselDao struct {
-	*gorm.DB //表示与数据库的连接
+	*gorm.DB 
 }
 
 func NewCarouselDao(ctx context.Context) *CarouselDao {
