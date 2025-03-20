@@ -1,13 +1,9 @@
 # EC Site Backend
 
-This is a backend system for an e-commerce (EC) site, built with Go using the Gin framework. It provides APIs for user management, product management, orders, and payments.
+This is a backend system for an e-commerce (EC) site, built with Go using the Gin framework. It provides APIs for user management, product management, orders, payments and Flash Sale.
 
-It is mainly referenced from this https://www.bilibili.com/video/BV1Zd4y1U7D8?spm_id_from=333.788.videopod.episodes&vd_source=461c37833af8427a514d9f0b39901286.
-
-In addition to the original implementation, we have added a "Second Kill" feature.
-
-## Second Kill feature
-Process for second kill
+## Second Kill (Flash Sale) feature
+Process for Flash Sale
 <img width="760" alt="Screenshot 2025-02-17 at 23 48 15" src="https://github.com/user-attachments/assets/3107290f-abba-4ce4-ad1c-064fe950382a" />
 
 ## Features
@@ -26,7 +22,7 @@ Process for second kill
 - Using **Gin** web framework for API handling.
 - Using **JWT** for authentication and authorization for users.
 - Using **MySQL** for storing user and product data.
-- Using Redis as cache to for flash sales and product analytics.
+- Using **Redis** as cache to for flash sales and product analytics.
 
 ## Installation
 
@@ -105,9 +101,9 @@ Process for second kill
 | POST   | `/api/v1/seckill/:id`        | Purchase Seckill product |
 
 
-## Contribution
+## Reference
 
-Feel free to fork this repository and contribute via pull requests.
+(https://www.bilibili.com/video/BV1Zd4y1U7D8/?spm_id_from=333.788.videopod.episodes&vd_source=461c37833af8427a514d9f0b39901286)
 
 
 
